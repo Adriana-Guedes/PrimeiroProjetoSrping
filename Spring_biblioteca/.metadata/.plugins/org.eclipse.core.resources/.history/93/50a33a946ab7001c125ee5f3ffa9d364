@@ -1,0 +1,84 @@
+//CAMADA DE ENTITY
+
+
+
+package br.com.empresa.entity;
+
+import javax.persistence.Entity;
+
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity // PARA INFORMAR AO SPRING QUE ESSA É UMA CLASSE DE DOMINIO
+public class Aluno {
+	
+	
+ @Id	// PARA INFORMAR AO SPRING QUE ESSE É UMA CHAVE PRIMARIA / CRLT + SPACE E O SPRING IMPORTA
+ @GeneratedValue(strategy = GenerationType.IDENTITY)    //sequence É INDICAR POR QUAL SEQUENCIA QUE IRA INICIAR A CHAVE PRIMARIA ( INICIAR EM 1-  IDENTITY AUTO - BANCO DE DADOS RESOLVE ISSO, OU INICIAR EM 100? SEQUENCE)
+  private Integer id;
+ 
+ private String nome;
+ 
+ 
+
+ //-------------------------------RELACIONAMENTO------------------------------------------
+ //EU TENHO VARIOS ALUNOS PODEM ESTAR SOMENTE A UNICA TURMA
+ @ManyToOne
+ @JoinColumn(name="id_turma")// QUANDO FOR GRAVAR A TURMA , NECESSÁRIO INFORMAR A TURMA DELE, VOU DIZER ISSO ATRAVES DA COLUNA
+ private Turma turma;
+ 
+ //-------------------------------RELACIONAMENTO------------------------------------------
+ 
+ 
+ 
+ 
+ //GETTER E SETTER ID 
+public Integer getId() {
+	return id;
+}
+
+
+public void setId(Integer id) {
+	this.id = id;
+}
+
+
+//GETTER E SETTER NOME 
+
+public String getNome() {
+	return nome;
+}
+
+
+public void setNome(String nome) {
+	this.nome = nome;
+}
+
+
+
+
+//GETTER E SETTER TURMA (RELACIONAMENTO) 
+public Turma getTurma() {
+	return turma;
+}
+
+
+public void setTurma(Turma turma) {
+	this.turma = turma;
+}
+
+
+
+
+
+ 
+ 
+ 
+	
+	
+
+}

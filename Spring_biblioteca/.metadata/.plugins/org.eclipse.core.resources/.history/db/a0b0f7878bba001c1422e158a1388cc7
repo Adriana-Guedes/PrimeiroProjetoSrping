@@ -1,0 +1,4 @@
+
+drop disciplina where id = 5
+
+

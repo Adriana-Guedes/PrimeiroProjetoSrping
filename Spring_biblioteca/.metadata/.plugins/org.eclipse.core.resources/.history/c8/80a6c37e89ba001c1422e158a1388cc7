@@ -1,0 +1,5 @@
+
+
+
+
+drop table disciplina where id = 10
