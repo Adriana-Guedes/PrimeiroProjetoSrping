@@ -14,9 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import br.com.empresa.constantes.Messages;
 import br.com.empresa.entity.Turma;
 import br.com.empresa.service.TurmaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+
+
+
+
+@Tag(name = Messages.SWAGGER_TAG_TURMA_ENDPOINT )//NOME DO ENDPOINT NO SWAGGER
 @RestController
 @RequestMapping("/turma")//EndPoint =MAPEAMENTO A NOTAÇÃO RESTMAPPING , POIS QUANDO ALGUÉM CHAMAR A LOCALHOST.../ALUNO, VAI ENCONTRAR ESSA CLASSE
 public class TurmaResource {
@@ -25,22 +34,27 @@ public class TurmaResource {
 	public TurmaService turmaService;
 	
 	
+	
 	//METODO LISTAR  - ENDPOINT
+	
+	@Operation(description = Messages.SWAGGER_GET_ALL) //DESCRIÇÃO PARA O SWAGGER DO QUE ESSE METODO FAZ
 	@RequestMapping(method = RequestMethod.GET) // MESMA COISA QUE @GetMapping    
-	public ResponseEntity<List<Turma>> listarTurmas(){
-		
+	public ResponseEntity<List<Turma>> listarTurmas(){	
 		List<Turma> turmas = turmaService.listaTodasTurmas();
 		return ResponseEntity.ok().body(turmas);
 		
 	}
 	//METODO BUSCAR POR ID - ENDPOINT
+	@Operation(description = Messages.SWAGGER_GET )
 	@RequestMapping(value="/{id}", method = RequestMethod.GET) // MESMA COISA QUE @GetMapping    
 	public ResponseEntity<Turma> buscaPorId(@PathVariable Integer id) throws ObjectNotFoundException{
 		Turma turma = turmaService.buscarPorID(id);
 		return  ResponseEntity.ok().body(turma);
 	}
 	
+	
 	//METODO INSERIR - ENDPOINT
+	@Operation(description = Messages.SWAGGER_INSERT )
 	@RequestMapping( method = RequestMethod.POST) //MESMA COISA QUE @POSTMAPPING
 	public ResponseEntity<Void> inserir(@RequestBody Turma turma){  //@RequestBody CONSEGUE ENTENDER O QUE FOI ENVIADO NO BODY E ATRIBUIR A VARIAVEL NO CASO turma
 		Turma objTurma = turmaService.salvar(turma);
@@ -50,6 +64,7 @@ public class TurmaResource {
 		}
 	
 	//METODO DELETAR - ENDPOINT
+	@Operation(description =Messages.SWAGGER_DELETE )
 	@RequestMapping(value="/{id}", method = RequestMethod.DELETE )
 	public ResponseEntity<Void> excluir(@PathVariable Integer id ){
 		turmaService.excluir(id);
@@ -58,6 +73,7 @@ public class TurmaResource {
 	}
 	
 	//METODO ALTERAR - ENDPOINT
+	@Operation(description= Messages.SWAGGER_UPDATE)
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> alterar(@RequestBody Turma objTurma,@PathVariable Integer id){
 		objTurma.setId(id);

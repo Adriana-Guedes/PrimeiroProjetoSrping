@@ -12,11 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.empresa.constantes.Messages;
 import br.com.empresa.entity.Aluno;
 import br.com.empresa.entity.AlunoDisciplina;
 import br.com.empresa.entity.Avaliacao;
 import br.com.empresa.entity.Disciplina;
 import br.com.empresa.service.AvaliacaoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name=Messages.SWAGGER_TAG_AVALIACAO_ENDPOINT)
 
 @RestController
 @RequestMapping("/avaliacao")
@@ -25,7 +30,7 @@ public class AvaliacaoResource {
 	@Autowired
 	private AvaliacaoService service;
 	
-	
+	@Operation(description= Messages.SWAGGER_GET_ALL)
 	//@GetMapping
 	@RequestMapping(method =RequestMethod.GET)
 	public ResponseEntity<List<Avaliacao>> listarAvaliacao(){
@@ -35,7 +40,7 @@ public class AvaliacaoResource {
 		
 	}
 	
-	
+	@Operation(description= Messages.SWAGGER_INSERT )
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> inserir(@RequestBody  Avaliacao objAvaliacao){
 		objAvaliacao = service.save(objAvaliacao);
@@ -46,7 +51,7 @@ public class AvaliacaoResource {
 	}
 	
 	
-	
+	@Operation(description = Messages.SWAGGER_GET)
 	@RequestMapping(value = "/{idAluno}/{idDisciplina}", method = RequestMethod.GET)
 	public ResponseEntity<Avaliacao> buscarAvaliacaoAlunoPorDisciplina (@PathVariable Integer idAluno, @PathVariable Integer idDisciplina){
 	Aluno aluno = new Aluno();

@@ -1,0 +1,20 @@
+#COM ISSO A BASE DE DADOS N�O SERA MAIS CRIADA AUTOMATICAMENTE
+spring.jpa.hibernate.ddl-auto=none   
+
+#URL DO BANCO DE DADOS NO H2
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=sa
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.show-sql=true 
+
+#DESCRIÇÃO DE CONFIGURAÇÃO DO SWAGGER
+app.name = @project.name@
+app.description = @project.description@
+app.version = @project.version@
+
+
+
+#NPARA COLOCAR NOME NA APLICAÇÃO
+server.servlet.context-path= /api-sistema 

@@ -1,0 +1,12 @@
+//PARA TEXTOS CONSTANTES
+
+
+package br.com.empresa.constantes;
+
+public class Messages {
+	
+	public static final String SWAGGER_GET_ALL = "Retorno de todos os registro";
+	public static final String SWAGGER_INSERT = "Insere um novo registro";
+	public static final String SWAGGER_GET = "Retorna um registro pelo id";
+
+}

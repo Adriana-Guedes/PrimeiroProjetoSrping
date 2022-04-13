@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.empresa.constantes.Messages;
 import br.com.empresa.entity.Aluno;
 import br.com.empresa.service.AlunoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 
-
+@Tag(name= Messages.SWAGGER_TAG_ALUNO_ENDEPOINT)
 @RestController
 @RequestMapping("/aluno")  //EndPoint =MAPEAMENTO A NOTAÇÃO RESTMAPPING , POIS QUANDO ALGUÉM CHAMAR A LOCALHOST.../ALUNO, VAI ENCONTRAR ESSA CLASSE
 public class AlunoResource {
@@ -34,6 +37,7 @@ public class AlunoResource {
 	private AlunoService alunoService; // ACESSANDO OS METODOS DE ALUNO SERVICE
 	
 	//METODO LISTAS ALUNOS(GET)
+	@Operation(description = Messages.SWAGGER_GET_ALL)
 	@RequestMapping(method=RequestMethod.GET) //REQUISIÇÃO DO TIPO GET
 	public ResponseEntity<List<Aluno>> listarAluno(){ //METODO RESPONSAVEL PELA REQUISIÇÃO DO TIPO GET
 		
@@ -46,6 +50,7 @@ public class AlunoResource {
 	
 	
 	//METODO BUSCAR POR ID ( GET)  - ENDPOINT
+	@Operation(description = Messages.SWAGGER_GET)
 	@RequestMapping(value="/{id}", method = RequestMethod.GET ) //EndPoint 
 	public ResponseEntity<Aluno> buscarPorId(@PathVariable Integer id) throws ObjectNotFoundException{
 		Aluno aluno = alunoService.buscarPorId(id);
@@ -54,7 +59,7 @@ public class AlunoResource {
 	
 	
 	//METODO INSERIR  - ENDPOINT
-	
+	@Operation(description = Messages.SWAGGER_INSERT)
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> inseir(@RequestBody Aluno objAluno){
 		Aluno aluno = alunoService.salvar(objAluno);
@@ -65,7 +70,7 @@ public class AlunoResource {
 	
 
 	//METODO ALTERAR  - ENDPOINT
-	
+	@Operation(description= Messages.SWAGGER_UPDATE)
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> alterar(@RequestBody Aluno objAluno,@PathVariable Integer id){
 		objAluno.setId(id);
@@ -75,6 +80,7 @@ public class AlunoResource {
 	}
 	
 	//METODO DELETAR - ENDPOINT
+	    @Operation(description = Messages.SWAGGER_DELETE)
 		@RequestMapping(value="/{id}", method = RequestMethod.DELETE )
 		public ResponseEntity<Void> excluir(@PathVariable Integer id ){
 			alunoService.excluir(id);

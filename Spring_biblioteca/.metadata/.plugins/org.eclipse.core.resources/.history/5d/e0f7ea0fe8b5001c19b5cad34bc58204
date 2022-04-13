@@ -1,5 +1,0 @@
-package br.com.empresa.repository;
-
-public interface DisciplinaRepository {
-
-}
