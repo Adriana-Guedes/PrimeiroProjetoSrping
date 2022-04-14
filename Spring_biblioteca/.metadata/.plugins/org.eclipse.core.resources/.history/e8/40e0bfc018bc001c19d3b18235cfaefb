@@ -1,0 +1,33 @@
+#COM ISSO A BASE DE DADOS N�O SERA MAIS CRIADA AUTOMATICAMENTE
+spring.jpa.hibernate.ddl-auto=none   
+
+#URL DO BANCO DE DADOS NO H2
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=sa
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.show-sql=true 
+
+#DESCRIÇÃO DE CONFIGURAÇÃO DO SWAGGER
+app.name = @project.name@
+app.description = @project.description@
+app.version = @project.version@
+
+
+
+
+#REFERENCIA DA DOCUMENTAÇÃO DO SWAGGER (PARA O SWAGGER SABER ONDE ELE VAI BUSCAR TODA A PARTE DE CONFIRURAÇÃO E ESTRUTURAÇÃO PARA QUE ELE POSSO MONTAR SUA PAGINA DO SWAGGER )
+springdoc.api-docs.path=/api-docs
+
+
+
+#NPARA COLOCAR NOME NA APLICAÇÃO
+server.servlet.context-path= /api-sistema 
+
+
+
+
+
+# ENDEREÇO DA API
+# http://localhost:8080/api-sistema/swagger-ui/index.html#/

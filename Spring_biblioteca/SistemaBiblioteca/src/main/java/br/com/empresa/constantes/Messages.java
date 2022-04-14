@@ -22,6 +22,7 @@ public class Messages {
 	public static final String SWAGGER_INSERT = "Insere um novo registro";
 	public static final String SWAGGER_DELETE = "Remove um registro por id";
 	public static final String SWAGGER_UPDATE = "Atualiza um registro por id";
+	public static final String SWAGGER_PAGINACAO = "Paginação";
 	
 	
 	

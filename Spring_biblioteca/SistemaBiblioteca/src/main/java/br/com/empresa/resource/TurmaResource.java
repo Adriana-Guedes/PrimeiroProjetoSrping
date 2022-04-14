@@ -7,11 +7,14 @@ import java.util.List;
 
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -42,8 +45,55 @@ public class TurmaResource {
 	public ResponseEntity<List<Turma>> listarTurmas(){	
 		List<Turma> turmas = turmaService.listaTodasTurmas();
 		return ResponseEntity.ok().body(turmas);
+			
 		
 	}
+	
+	
+	
+	//***************************************CHAMADA DO METODO DE  PAGINAÇÃO E VERSIONAMENTO DE API********************************************
+	
+	//*******************************************PAGINAÇÃO *** LOCALHOST:8080/API-SISTEMA/PAGE?PAGINA******************************************
+	
+	@Operation(description = Messages.SWAGGER_PAGINACAO)
+	@GetMapping(value="/V1/page")
+	public ResponseEntity<Page<Turma>> listarTurmasPorPaginacaoV1(
+			@RequestParam(value="pagina", defaultValue = "0") int pagina,
+			@RequestParam(value="linhasPorPagina", defaultValue = "24") int linhasPorPagina,
+			@RequestParam(value="direcao", defaultValue = "ASC") String direcao,
+			@RequestParam(value="orderBy", defaultValue = "nome") String orderBy
+			){
+		
+		Page<Turma> turmas =  turmaService.buscaPorPaginacao(pagina, linhasPorPagina, direcao, orderBy);
+		return ResponseEntity.ok().body(turmas);
+	}
+	
+	
+	//NESSA VERSÃO NÃO TEM OPÇÃO DE ALTERAÇÃO DE QUANTIDADE POR LINHAS
+	
+	@Operation(description = Messages.SWAGGER_PAGINACAO)
+	@GetMapping(value="/V2/page")
+	public ResponseEntity<Page<Turma>> listarTurmasPorPaginacaoV2(
+			@RequestParam(value="pagina", defaultValue = "0") int pagina,
+		
+			@RequestParam(value="direcao", defaultValue = "ASC") String direcao,
+			@RequestParam(value="orderBy", defaultValue = "nome") String orderBy
+			){
+		
+		Page<Turma> turmas =  turmaService.buscaPorPaginacao(pagina, 10, direcao, orderBy);
+		return ResponseEntity.ok().body(turmas);
+	}
+	
+	
+	
+	//*******************************************PAGINAÇÃO *** LOCALHOST:8080/API-SISTEMA/PAGE?PAGINA******************************************
+	
+	
+	
+	
+	
+	
+	
 	//METODO BUSCAR POR ID - ENDPOINT
 	@Operation(description = Messages.SWAGGER_GET )
 	@RequestMapping(value="/{id}", method = RequestMethod.GET) // MESMA COISA QUE @GetMapping    
@@ -51,6 +101,8 @@ public class TurmaResource {
 		Turma turma = turmaService.buscarPorID(id);
 		return  ResponseEntity.ok().body(turma);
 	}
+	
+	
 	
 	
 	//METODO INSERIR - ENDPOINT
@@ -63,6 +115,8 @@ public class TurmaResource {
 		
 		}
 	
+	
+	
 	//METODO DELETAR - ENDPOINT
 	@Operation(description =Messages.SWAGGER_DELETE )
 	@RequestMapping(value="/{id}", method = RequestMethod.DELETE )
@@ -72,6 +126,8 @@ public class TurmaResource {
 		
 	}
 	
+	
+	
 	//METODO ALTERAR - ENDPOINT
 	@Operation(description= Messages.SWAGGER_UPDATE)
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
@@ -80,4 +136,6 @@ public class TurmaResource {
 		turmaService.alterar(objTurma);
 		return ResponseEntity.noContent().build();
 	}
+	
+	
 }
